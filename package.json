@@ -9,7 +9,7 @@
     "build:web": "cd web && npm run build",
     "dev": "concurrently \"npm run server\" \"npm run web\"",
     "build": "concurrently \"npm run build:server\" \"npm run build:web\"",
-    "start": "cd server && npm run start"
+    "start": "cd backend && npm run start:prod"
   },
   "author": "Aashish Panchal",
   "license": "ISC",
