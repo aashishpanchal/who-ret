@@ -1,13 +1,10 @@
 {
-  "name": "e-cart",
+  "name": "who-ret-backend",
   "version": "0.0.1",
-  "description": "server of e-cart application",
-  "author": "Aashish Panchal Coder",
+  "description": "backend of who ret b2b application",
+  "author": "Aashish Panchal",
   "private": true,
-  "license": "E-Cart",
-  "bin": {
-    "e-cart": "./dist/cli/main-cli.js"
-  },
+  "license": "MIT",
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
