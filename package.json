@@ -1,0 +1,19 @@
+{
+  "name": "who-ret",
+  "version": "1.0.0",
+  "description": "Who Ret is b2b application",
+  "scripts": {
+    "server": "cd backend && npm run start:dev",
+    "web": "cd web && npm run dev",
+    "build:server": "cd backend && npm run build",
+    "build:web": "cd web && npm run build",
+    "dev": "concurrently \"npm run server\" \"npm run web\"",
+    "build": "concurrently \"npm run build:server\" \"npm run build:web\"",
+    "start": "cd server && npm run start"
+  },
+  "author": "Aashish Panchal",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
+}
