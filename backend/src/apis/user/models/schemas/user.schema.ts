@@ -31,10 +31,10 @@ export class User {
   isActive: boolean;
 
   @Prop({ default: false })
-  isSuperuser: boolean;
+  isPhoneVerify: boolean;
 
-  @Prop()
-  loginAt: Date;
+  @Prop({ default: false })
+  isEmailVerify: boolean;
 
   // methods
   isValidPassword: (password: string) => Promise<boolean>;

@@ -1,10 +1,9 @@
-import { ROLE } from '@/apis/user/enums';
 import {
   PasswordCommandOptions,
   RegisterCommandOptions,
 } from '../../interfaces';
-import { UserService } from '@apis/user/services';
 import { Command, CommandRunner, InquirerService } from 'nest-commander';
+import { UserCommandService } from '@cli/services';
 
 type CommandOptions = RegisterCommandOptions & PasswordCommandOptions;
 
@@ -15,7 +14,7 @@ type CommandOptions = RegisterCommandOptions & PasswordCommandOptions;
 export class CreateSuperuserCommand extends CommandRunner {
   constructor(
     private readonly inquirerService: InquirerService,
-    private readonly userService: UserService,
+    private readonly userCommandService: UserCommandService,
   ) {
     super();
   }
@@ -24,14 +23,11 @@ export class CreateSuperuserCommand extends CommandRunner {
     options = await this.inquirerService.ask('register', options);
     options = await this.inquirerService.ask('password', options);
     try {
-      await this.userService.create({
-        phone: options.phone,
-        email: options.email,
-        password: options.password,
-        isActive: true,
-        isSuperuser: true,
-        role: ROLE.ADMIN,
-      });
+      await this.userCommandService.createSuperuser(
+        options.phone,
+        options.email,
+        options.password,
+      );
       console.log('Superuser create successfully.');
       process.exit(0);
     } catch (error) {

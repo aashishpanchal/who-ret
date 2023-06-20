@@ -20,7 +20,7 @@ export class OtpService {
     for (let i = 0; i < size; i++) {
       otp += digits[Math.floor(Math.random() * 10)];
     }
-    if (this.configService.get('isDev')) return otp;
+    if (!this.configService.get('isDev')) return otp;
     return '123456';
   }
 
@@ -40,7 +40,7 @@ export class OtpService {
       'companyName',
     )} OTP. please do not share it with anyone and otp validate ${exp}.`;
 
-    if (this.configService.get('isDev'))
+    if (!this.configService.get('isDev'))
       this.twilioService.client.messages.create({
         body,
         from: this.configService.get('twilio.phone_number'),

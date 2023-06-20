@@ -1,14 +1,14 @@
 export class UserMsgs {
-  static readonly USER_NOT_FOUND_BY_ID = 'User not found given by id.';
-  static readonly PHONE_NUM_ALREADY_USE =
+  static readonly user_not_found_by_id = 'User not found given by id.';
+  static readonly phone_num_already_use =
     'Phone number already use by another user.';
-  static readonly ALREADY_SELLER = 'User already seller.';
-  static readonly ACCOUNT_NOT_ACTIVE = 'User account not active';
-  static readonly INVALID_PASS_PHONE = 'Invalid phone or password';
-  static readonly ENTER_VALID_PHONE_AND_PASSWORD =
+  static readonly already_seller = 'User already seller.';
+  static readonly account_not_active = 'User account not active.';
+  static readonly invalid_pass_phone = 'Invalid phone or password';
+  static readonly enter_valid_credentials =
     'Please enter a valid phone and password.';
-  static readonly KYC_NOT_FOUND = 'Kyc not found given by id.';
-  static readonly KYC_ALREADY_EXIT = 'Kyc abn number already exit.';
-  static readonly USER_KYC_ALREADY_EXIT = 'User Kyc already created.';
-  static readonly ADDRESS_NOT_FOUND = 'Address not found given by id.';
+  static readonly kyc_not_found = 'Kyc not found given by id.';
+  static readonly kyc_already_exit = 'Kyc abn number already exit.';
+  static readonly user_kyc_already_exit = 'User Kyc already created.';
+  static readonly address_not_found = 'Address not found given by id.';
 }

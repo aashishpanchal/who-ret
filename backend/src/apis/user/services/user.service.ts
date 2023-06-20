@@ -3,20 +3,24 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateUserDto, UpdateUserDto } from '../dto';
-import { InjectModel } from '@nestjs/mongoose';
-import { User, UserModel } from '../models';
 import { UserMsgs } from '../constants';
+import { User, UserModel } from '../models';
+import { QueryService } from '@modules/query';
+import { InjectModel } from '@nestjs/mongoose';
+import { CreateUserDto, UpdateUserDto, UserQueryDto } from '../dto';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User.name) private readonly userModel: UserModel) {}
+  constructor(
+    private readonly queryService: QueryService,
+    @InjectModel(User.name) private readonly userModel: UserModel,
+  ) {}
 
   async create(createUserDto: CreateUserDto) {
     const { phone } = createUserDto;
 
     if (await this.userModel.findOne({ phone })) {
-      throw new BadRequestException(UserMsgs.PHONE_NUM_ALREADY_USE);
+      throw new BadRequestException(UserMsgs.phone_num_already_use);
     }
 
     return await this.userModel.create(createUserDto);
@@ -28,11 +32,20 @@ export class UserService {
 
   async findById(id: string) {
     const user = await this.userModel.findById(id);
-    if (!user) throw new NotFoundException(UserMsgs.USER_NOT_FOUND_BY_ID);
+    if (!user) throw new NotFoundException(UserMsgs.user_not_found_by_id);
     return user;
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto) {
+  async findAll({ page, search, size, ...others }: UserQueryDto) {
+    return this.queryService
+      .search(['phone'], search)
+      .keyValue('role', others.role)
+      .keyValue('isActive', others.isActive)
+      .sort(others.sort)
+      .excModelWithPaginate({ page, size }, this.userModel);
+  }
+
+  async update(id: string, updateUserDto: Partial<UpdateUserDto>) {
     const updateUser = await this.userModel.findByIdAndUpdate(
       id,
       updateUserDto,
@@ -40,7 +53,7 @@ export class UserService {
     );
 
     if (!updateUser)
-      throw new BadRequestException(UserMsgs.USER_NOT_FOUND_BY_ID);
+      throw new BadRequestException(UserMsgs.user_not_found_by_id);
 
     return updateUser;
   }
@@ -49,7 +62,7 @@ export class UserService {
     const removeUser = await this.userModel.findByIdAndRemove(id);
 
     if (!removeUser)
-      throw new BadRequestException(UserMsgs.USER_NOT_FOUND_BY_ID);
+      throw new BadRequestException(UserMsgs.user_not_found_by_id);
 
     return removeUser;
   }

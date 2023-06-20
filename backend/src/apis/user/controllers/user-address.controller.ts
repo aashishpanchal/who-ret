@@ -1,41 +1,63 @@
 import {
   Controller,
+  Put,
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
+  HttpCode,
+  HttpStatus,
+  Query,
+  UseGuards,
 } from '@nestjs/common';
-import { CreateUserDto, UpdateUserDto } from '../dto';
-import { UserAddressService } from '../services/user-address.service';
+import { ROLE } from '../enums';
+import { Roles } from '../decorators';
+import {
+  CreateUserAddressDto,
+  UpdateUserAddressDto,
+  UserAddressQueryDto,
+} from '../dto';
+import { UserAddressService } from '../services';
+import { AtGuard, RoleGuard } from '@apis/auth/guards';
+import { ParseObjectIdPipe } from '@core/global/pipes';
 
 @Controller('api/user-address')
+@UseGuards(AtGuard, RoleGuard)
 export class UserAddressController {
-  constructor(private readonly userService: UserAddressService) {}
+  constructor(private readonly userAddressService: UserAddressService) {}
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+  @Roles(ROLE.ADMIN)
+  @HttpCode(HttpStatus.CREATED)
+  create(@Body() createUserAddressDto: CreateUserAddressDto) {
+    return this.userAddressService.create(createUserAddressDto);
   }
 
   @Get()
-  findAll() {
-    return this.userService.findAll();
+  @Roles(ROLE.ADMIN)
+  findAll(@Query() query: UserAddressQueryDto) {
+    return this.userAddressService.findAll(query);
+  }
+
+  @Put(':id')
+  @Roles(ROLE.ADMIN)
+  update(
+    @Param('id', ParseObjectIdPipe) id: string,
+    @Body() updateUserAddressDto: UpdateUserAddressDto,
+  ) {
+    return this.userAddressService.update(id, updateUserAddressDto);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
+  @Roles(ROLE.ADMIN)
+  findById(@Param('id', ParseObjectIdPipe) id: string) {
+    return this.userAddressService.findById(id);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+  @Roles(ROLE.ADMIN)
+  remove(@Param('id', ParseObjectIdPipe) id: string) {
+    return this.userAddressService.remove(id);
   }
 }

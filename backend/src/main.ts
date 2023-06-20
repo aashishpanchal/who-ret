@@ -9,6 +9,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
   const cfs = app.get(ConfigService);
+
   await app.listen(cfs.get('port'), cfs.get('host'));
 
   if (module.hot) {
