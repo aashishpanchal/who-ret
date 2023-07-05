@@ -1,6 +1,6 @@
 import { AuthMsgs } from '../constants';
 import { Strategy } from 'passport-local';
-import { AuthService } from '../services';
+import { AuthService } from '../auth.service';
 import { PassportStrategy } from '@nestjs/passport';
 import { ForbiddenException, Injectable } from '@nestjs/common';
 

@@ -27,9 +27,10 @@ export class RegisterQuestion {
   @ValidateFor({ name: 'phone' })
   async validatePhone(value: string) {
     if (isMobilePhone(value, 'en-AU', { strictMode: true })) {
-      return await this.userCommandService.checkPhone(value);
+      if (await this.userCommandService.checkPhone(value)) return true;
+      return 'That phone is already taken.';
     }
-    return 'Please enter a valid phone number';
+    return 'The phone number entered is not valid.';
   }
 
   @ValidateFor({ name: 'email' })

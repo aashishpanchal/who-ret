@@ -11,6 +11,16 @@ import {
 } from 'class-validator';
 import { ROLE } from '@apis/user/enums';
 
+export class KycDto {
+  @IsString()
+  @IsNotEmpty()
+  abnNumber: string;
+
+  @IsOptional()
+  @IsBoolean()
+  isVerify: boolean;
+}
+
 export class CreateUserDto {
   @IsMobilePhone(
     'en-AU',

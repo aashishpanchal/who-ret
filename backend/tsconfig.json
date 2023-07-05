@@ -23,7 +23,11 @@
       "@apis/*": ["./src/apis/*"],
       "@cli/*": ["./src/cli/*"],
       "@modules/*": ["./src/modules/*"],
-      "@core/*": ["./src/core/*"]
+      "@core/*": ["./src/core/*"],
+      "@configs/*": ["./src/configs/*"]
     }
+  },
+  "ts-node": {
+    "swc": true
   }
 }

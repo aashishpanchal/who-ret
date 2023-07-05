@@ -14,7 +14,7 @@ export class PasswordQuestion {
   @Question({
     type: 'password',
     name: 'confirmPassword',
-    message: 'confirm-password:',
+    message: 'Password (again):',
   })
   confirmPassword(val: string) {
     return val;
@@ -23,7 +23,7 @@ export class PasswordQuestion {
   @ValidateFor({ name: 'password' })
   validatePassword(value: string) {
     if (isNotEmpty(value)) return true;
-    return 'please enter valid password';
+    return "Blank passwords aren't allowed.";
   }
 
   @ValidateFor({ name: 'confirmPassword' })
@@ -32,8 +32,8 @@ export class PasswordQuestion {
       if (value === answer.password) {
         return true;
       }
-      return 'confirm password not match.';
+      return "Your passwords didn't match.";
     }
-    return 'please enter valid password';
+    return "Blank passwords aren't allowed.";
   }
 }

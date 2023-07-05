@@ -5,8 +5,12 @@ import { ConfigService } from '@nestjs/config';
 import { PassportModule } from '@nestjs/passport';
 import { AuthController } from './auth.controller';
 import { UserModule } from '@apis/user/user.module';
-import { AuthService, TokenService } from './services';
-import { AtStrategy, LocalStrategy, RtStrategy } from './strategies';
+import {
+  AccessTokenStrategy,
+  RefreshTokenStrategy,
+  LocalStrategy,
+} from './strategies';
+import { AuthService } from './auth.service';
 
 @Module({
   imports: [
@@ -21,6 +25,11 @@ import { AtStrategy, LocalStrategy, RtStrategy } from './strategies';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, TokenService, LocalStrategy, RtStrategy, AtStrategy],
+  providers: [
+    AuthService,
+    LocalStrategy,
+    AccessTokenStrategy,
+    RefreshTokenStrategy,
+  ],
 })
 export class AuthModule {}

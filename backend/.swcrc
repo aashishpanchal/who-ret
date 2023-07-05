@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json.schemastore.org/swcrc",
+  "jsc": {
+    "parser": {
+      "syntax": "typescript",
+      "decorators": true,
+      "dynamicImport": true
+    },
+    "target": "es2021",
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["./dist/*"],
+      "@apis/*": ["./dist/apis/*"],
+      "@cli/*": ["./dist/cli/*"],
+      "@modules/*": ["./dist/modules/*"],
+      "@core/*": ["./dist/core/*"],
+      "@configs/*": ["./dist/configs/*"]
+    }
+  },
+  "minify": false
+}

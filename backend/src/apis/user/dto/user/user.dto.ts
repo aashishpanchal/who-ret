@@ -7,13 +7,16 @@ export class UserDto {
   _id: ObjectId;
 
   @Expose()
-  name: string;
-
-  @Expose()
   phone: string;
 
   @Expose()
   email: string;
+
+  @Expose()
+  firstName: string;
+
+  @Expose()
+  lastName: string;
 
   @Expose()
   role: string;
@@ -22,7 +25,19 @@ export class UserDto {
   password: string;
 
   @Expose()
+  abnNumber: string;
+
+  @Expose()
+  isAbnVerify: boolean;
+
+  @Expose()
   isActive: boolean;
+
+  @Expose()
+  isPhoneVerify: boolean;
+
+  @Expose()
+  isEmailVerify: boolean;
 
   @Expose()
   loginAt: string;
